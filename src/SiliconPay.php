@@ -26,7 +26,6 @@
         }
 
         public function pay($amount, $phone, $email)
-        : array
         {
             $payload = [
                 'req'            => 'mobile_money',
@@ -38,6 +37,8 @@
                 'call_back'      => $this->callback_url,
                 'txRef'          => $this->txRef
             ];
-            return Http::dd()->post($this->payment_url, $payload)->json();
+//            return Http::dd()->post($this->payment_url, $payload)->json();
+            $client   = new Client();
+            $response = $client->request('POST', $this->payment_url, $payload);
         }
     }
