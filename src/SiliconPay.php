@@ -3,7 +3,6 @@
     namespace Omodingmike\Siliconpay;
 
     use GuzzleHttp\Client;
-    use Psr\Http\Message\StreamInterface;
 
     class SiliconPay
     {
@@ -30,7 +29,7 @@
          * @throws \GuzzleHttp\Exception\GuzzleException
          */
         public function pay($amount, $phone, $email)
-        : StreamInterface
+
         {
             $payload = [
                 'req'            => 'mobile_money',
@@ -43,7 +42,7 @@
                 'txRef'          => $this->txRef
             ];
             $client  = new Client();
-            return $client->request('POST', $this->payment_url, $payload)->getBody();
+            return $client->request('POST', $this->payment_url, $payload);
         }
 
         public function isCallbackValid()
