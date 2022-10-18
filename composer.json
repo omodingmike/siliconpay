@@ -1,21 +1,23 @@
 {
-    "name": "omodingmike/siliconpay",
-    "description": "Package for processing payments using Silicon Pay",
-    "type": "library",
-    "require": {
-        "guzzlehttp/guzzle": "7.0"
-    },
-    "license": "MIT",
-    "autoload": {
-        "psr-4": {
-            "Omodingmike\\Siliconpay\\": "src/"
-        }
-    },
-    "authors": [
-        {
-            "name": "MikeOmoding",
-            "email": "omodingmike@gmail.com"
-        }
-    ],
-    "minimum-stability": "dev"
+  "name": "omodingmike/siliconpay",
+  "description": "Package for processing payments using Silicon Pay",
+  "type": "library",
+  "require": {
+    "guzzlehttp/guzzle": ">=7.0.0",
+    "ext-json": "*",
+    "ext-openssl": "*"
+  },
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "Omodingmike\\Siliconpay\\": "src/"
+    }
+  },
+  "authors": [
+    {
+      "name": "MikeOmoding",
+      "email": "omodingmike@gmail.com"
+    }
+  ],
+  "minimum-stability": "dev"
 }

@@ -3,6 +3,7 @@
     namespace Omodingmike\Siliconpay;
 
     use GuzzleHttp\Client;
+    use Psr\Http\Message\StreamInterface;
 
     class SiliconPay
     {
@@ -25,7 +26,11 @@
             $this->payment_url  = $payment_url;
         }
 
+        /**
+         * @throws \GuzzleHttp\Exception\GuzzleException
+         */
         public function pay($amount, $phone, $email)
+        : StreamInterface
         {
             $payload = [
                 'req'            => 'mobile_money',
@@ -38,6 +43,21 @@
                 'txRef'          => $this->txRef
             ];
             $client  = new Client();
-            return $client->request('POST', $this->payment_url, $payload);
+            return $client->request('POST', $this->payment_url, $payload)->getBody();
+        }
+
+        public function isCallbackValid()
+        : bool
+        {
+            $body        = file_get_contents('php://input');
+            $dataObject  = json_decode($body);
+            $reference   = $dataObject->txRef;
+            $secure_hash = $dataObject->secure_hash;
+            $secrete_key = $this->api_key;
+            // Generate a secure hash on your end.
+            $cipher         = 'aes-256-ecb';
+            $generated_hash = openssl_encrypt($reference, $cipher, $secrete_key);
+            // authenticating the callback data
+            return $generated_hash == $secure_hash;
         }
     }
