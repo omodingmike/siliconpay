@@ -37,8 +37,7 @@
                 'call_back'      => $this->callback_url,
                 'txRef'          => $this->txRef
             ];
-//            return Http::dd()->post($this->payment_url, $payload)->json();
-            $client   = new Client();
-            $response = $client->request('POST', $this->payment_url, $payload);
+            $client  = new Client();
+            return $client->request('POST', $this->payment_url, $payload);
         }
     }
